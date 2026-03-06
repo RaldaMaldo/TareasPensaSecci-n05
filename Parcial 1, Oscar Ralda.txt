@@ -1,0 +1,115 @@
+num = int(input("Ingrese el número: "))
+
+if (num < 1000):
+    print ("Número invalido, es menor a 4 digitos")
+elif (num > 9999):
+    print ("Número invalido, es mayor a 4 digitos")
+else: 
+    um = num // 1000
+    aux = num % 1000
+    c = aux // 100
+    aux2 = aux % 100
+    d = aux2 // 10
+    u = aux2 % 10
+    
+    print ("El numero es: ", num)
+    
+    if (um < c & um < d & um < u):
+        if (c < d & c < u):
+            if (d < u):
+                print ("De forma ascendente sería: ", um, c, d, u)
+                print ("De forma descendente sería: ", u, d, c, um)
+            elif (u < d):
+                print ("De forma ascendente sería: ", um, c, u, d)
+                print ("De forma descendente sería: ", d, u, c, um)
+            
+        elif (d < c & d < u):
+            if (c < u):
+                print ("De forma ascendente sería: ", um, d, c, u)
+                print ("De forma descendente sería: ", u, c, d, um)
+            elif (u < c):
+                print ("De forma ascendente sería: ", um, d, u, c)
+                print ("De forma descendente sería: ", c, u, d, um)
+            
+        elif (u < d % u < c):
+            if (d < c):
+                print ("De forma ascendente sería: ", um, u, d, c)
+                print ("De forma descendente sería: ", c, d, u, um)
+            elif (c < d):
+                print ("De forma ascendente sería: ", um, u, c, d)
+                print ("De forma descendente sería: ", d, c, u, um)
+    
+    elif (c < um & c < d & c < u):
+        if (um < d & um < u):
+            if (d < u):
+                print ("De forma ascendente sería: ", c, um, d, u)
+                print ("De forma descendente sería: ", u, d, um, c)
+            elif (u < d):
+                print ("De forma ascendente sería: ", c, um, u, d)
+                print ("De forma descendente sería: ", d, u, um, c)
+            
+        elif (d < um & d < u):
+            if (um < u):
+                print ("De forma ascendente sería: ", c, d, um, u)
+                print ("De forma descendente sería: ", u, um, d, c)
+            elif (u < um):
+                print ("De forma ascendente sería: ", c, d, u, um)
+                print ("De forma descendente sería: ", um, u, d, c)
+            
+        elif (u < d % u < um):
+            if (d < um):
+                print ("De forma ascendente sería: ", c, u, d, um)
+                print ("De forma descendente sería: ", um, d, u, c)
+            elif (um < d):
+                print ("De forma ascendente sería: ", c, u, um, d)
+                print ("De forma descendente sería: ", d, um, u, c)
+                
+    elif (d < u & d < c & d < um):
+        if (u < c & u < um):
+            if (um < c):
+                print ("De forma ascendente sería: ", d, u, um, c)
+                print ("De forma descendente sería: ", c, um, u, d)
+            elif (c < um):
+                print ("De forma ascendente sería: ", d, u, c, um)
+                print ("De forma descendente sería: ", um, c, u, d)
+            
+        elif (c < u & c < um):
+            if (u < um):
+                print ("De forma ascendente sería: ", d, c, u, um)
+                print ("De forma descendente sería: ", um, u, c, d)
+            elif (um < u):
+                print ("De forma ascendente sería: ", d, c, um, u)
+                print ("De forma descendente sería: ", um, u, c, d)
+            
+        elif (um < u & um < c):
+            if (u < c):
+                print ("De forma ascendente sería: ", d, um, u, c)
+                print ("De forma descendente sería: ", c, u, um, d)
+            elif (c < u):
+                print ("De forma ascendente sería: ", d, um, c, u)
+                print ("De forma descendente sería: ", u, c, um, d)
+                
+    elif(u < c & u < d & u < um):
+        if (d < c & d < um):
+            if (c < um);
+                print ("De forma ascendente sería: ", u, d, c, um)
+                print ("De forma descendente sería: ", um, c, d, u)
+            elif (um < c):
+                print ("De forma ascendente sería: ", u, d, um, c)
+                print ("De forma descendente sería: ", c, um, d, u)
+            
+        elif (c < d & c < um):
+            if (d < um):
+                print ("De forma ascendente sería: ", u, c, d, um)
+                print ("De forma descendente sería: ", um, d, c, u)
+            elif (um < d):
+                print ("De forma ascendente sería: ", u, c, um, d)
+                print ("De forma descendente sería: ", d, um, c, u)
+            
+        elif (um < d & um < c):
+            if (d < c):
+                print ("De forma ascendente sería: ", u, um, d, c)
+                print ("De forma descendente sería: ", c, d, um, u)
+            elif (c < d):
+                print ("De forma ascendente sería: ", u, um, c, d)
+                print ("De forma descendente sería: ", d, c, um, u)
