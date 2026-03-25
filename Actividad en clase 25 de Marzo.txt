@@ -1,0 +1,59 @@
+#for i in range(1, 6): #Horizontales
+#    for j in range(1,10): #Verticales
+#        print ("*", end="\t")
+#    print()
+
+print("\n¡Bienvenido!")
+ingreso = int(input("¿Que tan alta desea que sea su escalera? "))
+if (ingreso < 1):
+    print ("El numero es invalido")
+else:
+    print (" \n")
+    for i in range(1,ingreso + 1):
+        for j in range (i):
+            print ("*", end = "\t")
+        print()
+    
+print ("\n")
+
+ing = int(input("¿Que tan alto desea que sea su triangulo? "))
+if (ing < 1 | ing % 2 == 0):
+    print ("El numero es invalido")
+else:
+    print (" \n")
+    for i in range(1,ing + 1):
+        for j in range (i):
+            print ("*", end = "\t")
+        print()
+        
+    for i in range(ing - 1,0, -1):
+        for j in range (i):
+            print ("*", end = "\t")
+        print()
+
+print ("\n")
+
+ingre = int(input("¿Qué tan alto desea que sea su triángulo? "))
+
+print ("\n")
+for i in range (1, ingre + 1):
+    for j in range (ingre - i):
+        print (" ", end = " ")
+    for k in range (2*i-1):
+        print("*", end = " ")
+    print()
+
+print (" \n")
+
+ingres = int(input("¿Qué tan alto desea que sea su triángulo? "))
+
+if ingres < 1:
+    print("El número es inválido")
+else:
+    print("\n")
+    for i in range(1, ingres + 1):
+        espacios = ingres - i  
+        print("  " * espacios + "* " * (2 * i - 1))
+    for i in range(ingres - 1, 0, -1):
+        espacios = ingres - i
+        print("  " * espacios + "* " * (2 * i - 1))
