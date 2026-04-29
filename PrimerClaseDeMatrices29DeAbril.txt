@@ -1,0 +1,78 @@
+#tabla = [
+#    [1,2,3],
+#    [4,5,6],
+#    [7,8,9]
+#    ]
+
+#print(tabla)
+#print (" \n")
+#print(tabla[0][0])
+#print(tabla[2][1] - tabla[1][1], " \n")
+
+#for i in tabla:
+#    for j in i:
+#        if j >= 6:
+#            break
+#        else:
+#            print (j)
+
+#matriz = []
+#print("\n")
+#filas = int(input("Ingrese el tamaño de fila: "))
+#columnas = int(input("Ingrese el tamaño de columna: "))
+
+
+#for f in range (filas):
+#    fila = []
+#    for c in range (columnas):
+#        dato = int(input("Ingrese los datos: "))
+#        fila.append (dato)
+#    matriz.append (fila)
+#print (matriz)
+
+#print("\n")
+#A = [ [2,3], [4,5] ]
+#B = [ [5,4], [6,8] ]
+#suma = [ [0,0], [0,0] ]
+
+#for i in range (len(A)):
+#    for j in range (len(A[0])):
+#        suma [i][j] = A[i][j] + B[i][j]
+#print(suma)
+
+print ("\n Bienvenido!")
+matriz1 = []
+
+filas = int(input("\n Ingrese el tamaño de las filas: "))
+columnas = int(input(" Ingrese el tamaño de las columnas: "))
+
+print("\n Empecemos con la matriz 1!")
+for f in range (filas):
+    fila = []
+    for c in range (columnas):
+        dato = int(input(" Ingrese los datos: "))
+        fila.append (dato)
+    matriz1.append (fila)
+
+matriz2 = []
+print("\n Vamos con la matriz 2!")
+
+for p in range (filas):
+    fila2 = []
+    for o in range (columnas):
+        dato2 = int(input(" Ingrese los datos: "))
+        fila2.append (dato2)
+    matriz2.append (fila2)
+
+suma = []
+for i in range (filas):
+    fila_suma = []
+    for j in range (columnas):
+        fila_suma.append(matriz1[i][j] - matriz2[i][j])
+    suma.append(fila_suma)
+
+print ("\n")
+print (" ",matriz1)
+print (" ",matriz2)
+print("\n  Resta (Matriz1 - Matriz2):")
+print(" ",suma)
