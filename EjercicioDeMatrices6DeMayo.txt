@@ -1,0 +1,49 @@
+#M = [[1,2,3],[4,5,6][7,8,9]]
+
+#sf = [0,0,0]
+#sc = [0,0,0]
+
+#for i in range(3):
+#    for j in range(3)_
+#    sf[i] += M[i][j]
+#    sc[j] += M[i][j]
+
+#print(M)
+#print(sf)
+#print(sc)
+
+
+matriz = []
+
+for i in range (3):
+    f1 = []
+    for j in range (3):
+        valor = int(input(f"Ingrese el valor para la posicion ({i + 1}) ({j + 1}): "))
+        f1.append(valor)
+    matriz.append(f1)
+
+print("\nMatriz original:")
+for f1 in matriz:
+    print(f1)
+
+magico = 15
+
+filas_ok = all(sum(fila) == magico for fila in matriz)
+
+columnas_ok = True
+for j in range(3):
+    suma_col = 0
+    for i in range(3):
+        suma_col += matriz[i][j]
+    if suma_col != magico:
+        columnas_ok = False
+
+diag1 = matriz[0][0] + matriz[1][1] + matriz[2][2]
+diag2 = matriz[0][2] + matriz[1][1] + matriz[2][0]
+
+diagonales_ok = (diag1 == magico and diag2 == magico)
+
+if filas_ok and columnas_ok and diagonales_ok:
+    print("\nEs un cuadro mágico ")
+else:
+    print("\nNo es un cuadro mágico ")
