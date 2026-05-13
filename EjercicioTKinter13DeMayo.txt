@@ -1,0 +1,257 @@
+
+import tkinter as tk
+from tkinter import messagebox
+
+# ============================================================
+# PROGRAMA: Control Semanal de Salud con Tkinter
+# Evalúa azúcar, sal y presión arterial durante una semana.
+# ============================================================
+
+dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+
+def clasificar_presion(sistolica, diastolica):
+    if sistolica < 120 and diastolica < 80:
+        return "Normal"
+    elif 120 <= sistolica <= 129 and diastolica < 80:
+        return "Elevada"
+    elif 130 <= sistolica <= 139 or 80 <= diastolica <= 89:
+        return "Hipertensión Etapa 1"
+    elif sistolica >= 140 or diastolica >= 90:
+        return "Hipertensión Etapa 2"
+    else:
+        return "No clasificada"
+
+def evaluar_datos():
+    try:
+        salida_texto.delete("1.0", tk.END)
+
+        suma_azucar = 0
+        suma_sal = 0
+        suma_sistolica = 0
+        suma_diastolica = 0
+
+        print("\n===== RESULTADOS DIARIOS =====")
+
+        for i in range(len(dias)):
+            azucar = float(entradas_azucar[i].get())
+            sal = float(entradas_sal[i].get())
+            sistolica = float(entradas_sistolica[i].get())
+            diastolica = float(entradas_diastolica[i].get())
+
+            suma_azucar += azucar
+            suma_sal += sal
+            suma_sistolica += sistolica
+            suma_diastolica += diastolica
+
+            alertas = []
+
+            if azucar < 70 or azucar > 140:
+                alertas.append("ALERTA: nivel de azúcar fuera del rango saludable.")
+            else:
+                alertas.append("Azúcar dentro del rango normal.")
+
+            if sal > 2300:
+                alertas.append("ALERTA: consumo de sal elevado.")
+            else:
+                alertas.append("Sal dentro del rango recomendado.")
+
+            categoria_presion = clasificar_presion(sistolica, diastolica)
+
+            if categoria_presion == "Normal":
+                alertas.append("Presión arterial normal.")
+            elif categoria_presion == "Elevada":
+                alertas.append("Presión arterial elevada. Se recomienda control.")
+            else:
+                alertas.append("ALERTA: presión arterial requiere atención médica.")
+
+            resultado = (
+                f"Día: {dias[i]}\n"
+                f"Azúcar: {azucar} mg/dL\n"
+                f"Sal: {sal} mg\n"
+                f"Presión arterial: {sistolica}/{diastolica} mmHg\n"
+                f"Clasificación de presión: {categoria_presion}\n"
+                f"Alertas:\n"
+            )
+
+            for alerta in alertas:
+                resultado += f"- {alerta}\n"
+
+            resultado += "----------------------------------------\n"
+
+            salida_texto.insert(tk.END, resultado)
+            print(resultado)
+
+        promedio_azucar = suma_azucar / len(dias)
+        promedio_sal = suma_sal / len(dias)
+        promedio_sistolica = suma_sistolica / len(dias)
+        promedio_diastolica = suma_diastolica / len(dias)
+
+        clasificacion_promedio = clasificar_presion(promedio_sistolica, promedio_diastolica)
+
+        resumen = (
+            "\n===== PROMEDIO SEMANAL =====\n"
+            f"Promedio de azúcar: {promedio_azucar:.2f} mg/dL\n"
+            f"Promedio de sal: {promedio_sal:.2f} mg\n"
+            f"Promedio de presión arterial: {promedio_sistolica:.2f}/{promedio_diastolica:.2f} mmHg\n"
+            f"Clasificación semanal de presión: {clasificacion_promedio}\n"
+            "============================\n"
+        )
+
+        salida_texto.insert(tk.END, resumen)
+        print(resumen)
+
+        messagebox.showinfo("Evaluación completada", "Los datos fueron evaluados correctamente.")
+
+    except ValueError:
+        messagebox.showerror("Error", "Por favor ingrese únicamente valores numéricos.")
+
+def limpiar_datos():
+    salida_texto.delete("1.0", tk.END)
+    for lista in [entradas_azucar, entradas_sal, entradas_sistolica, entradas_diastolica]:
+        for entrada in lista:
+            entrada.delete(0, tk.END)
+
+def cargar_ejemplo():
+    valores_azucar = [130, 160, 95, 175, 160]
+    valores_sal = [2000, 2400, 1800, 2400, 2700]
+    valores_sistolica = [115, 130, 110, 125, 175]
+    valores_diastolica = [75, 85, 70, 78, 95]
+
+    for i in range(len(dias)):
+        entradas_azucar[i].delete(0, tk.END)
+        entradas_sal[i].delete(0, tk.END)
+        entradas_sistolica[i].delete(0, tk.END)
+        entradas_diastolica[i].delete(0, tk.END)
+
+        entradas_azucar[i].insert(0, valores_azucar[i])
+        entradas_sal[i].insert(0, valores_sal[i])
+        entradas_sistolica[i].insert(0, valores_sistolica[i])
+        entradas_diastolica[i].insert(0, valores_diastolica[i])
+
+# ==========================
+# INTERFAZ GRÁFICA
+# ==========================
+
+ventana = tk.Tk()
+ventana.title("Control Semanal de Salud")
+ventana.geometry("950x700")
+ventana.config(bg="#eaf4ff")
+
+titulo = tk.Label(
+    ventana,
+    text="Registro y Evaluación Semanal de Salud",
+    font=("Arial", 20, "bold"),
+    bg="#eaf4ff",
+    fg="#003366"
+)
+titulo.pack(pady=12)
+
+subtitulo = tk.Label(
+    ventana,
+    text="Evaluación de azúcar, consumo de sal y presión arterial",
+    font=("Arial", 12),
+    bg="#eaf4ff",
+    fg="#333333"
+)
+subtitulo.pack(pady=3)
+
+frame_tabla = tk.Frame(ventana, bg="#eaf4ff")
+frame_tabla.pack(pady=15)
+
+encabezados = ["Día", "Azúcar mg/dL", "Sal mg", "Sistólica mmHg", "Diastólica mmHg"]
+
+for col, texto in enumerate(encabezados):
+    tk.Label(
+        frame_tabla,
+        text=texto,
+        font=("Arial", 11, "bold"),
+        bg="#9ec9ff",
+        width=18,
+        relief="ridge",
+        padx=5,
+        pady=5
+    ).grid(row=0, column=col)
+
+entradas_azucar = []
+entradas_sal = []
+entradas_sistolica = []
+entradas_diastolica = []
+
+for i, dia in enumerate(dias):
+    tk.Label(
+        frame_tabla,
+        text=dia,
+        font=("Arial", 10, "bold"),
+        width=18,
+        relief="ridge",
+        bg="white",
+        padx=5,
+        pady=5
+    ).grid(row=i+1, column=0)
+
+    entrada_azucar = tk.Entry(frame_tabla, width=22, justify="center")
+    entrada_azucar.grid(row=i+1, column=1, padx=2, pady=2)
+
+    entrada_sal = tk.Entry(frame_tabla, width=22, justify="center")
+    entrada_sal.grid(row=i+1, column=2, padx=2, pady=2)
+
+    entrada_sistolica = tk.Entry(frame_tabla, width=22, justify="center")
+    entrada_sistolica.grid(row=i+1, column=3, padx=2, pady=2)
+
+    entrada_diastolica = tk.Entry(frame_tabla, width=22, justify="center")
+    entrada_diastolica.grid(row=i+1, column=4, padx=2, pady=2)
+
+    entradas_azucar.append(entrada_azucar)
+    entradas_sal.append(entrada_sal)
+    entradas_sistolica.append(entrada_sistolica)
+    entradas_diastolica.append(entrada_diastolica)
+
+frame_botones = tk.Frame(ventana, bg="#eaf4ff")
+frame_botones.pack(pady=10)
+
+boton_evaluar = tk.Button(
+    frame_botones,
+    text="Evaluar datos",
+    font=("Arial", 12, "bold"),
+    bg="#0066cc",
+    fg="white",
+    width=18,
+    command=evaluar_datos
+)
+boton_evaluar.grid(row=0, column=0, padx=8)
+
+boton_ejemplo = tk.Button(
+    frame_botones,
+    text="Cargar ejemplo",
+    font=("Arial", 12, "bold"),
+    bg="#2e8b57",
+    fg="white",
+    width=18,
+    command=cargar_ejemplo
+)
+boton_ejemplo.grid(row=0, column=1, padx=8)
+
+boton_limpiar = tk.Button(
+    frame_botones,
+    text="Limpiar",
+    font=("Arial", 12, "bold"),
+    bg="#cc6600",
+    fg="white",
+    width=18,
+    command=limpiar_datos
+)
+boton_limpiar.grid(row=0, column=2, padx=8)
+
+salida_texto = tk.Text(
+    ventana,
+    width=105,
+    height=22,
+    font=("Consolas", 10),
+    bg="white",
+    fg="#111111"
+)
+salida_texto.pack(pady=15)
+
+cargar_ejemplo()
+
+ventana.mainloop()
